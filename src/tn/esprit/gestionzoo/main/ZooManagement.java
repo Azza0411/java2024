@@ -1,13 +1,19 @@
 package tn.esprit.gestionzoo.main;
 
 import tn.esprit.gestionzoo.entities.*;
+import tn.esprit.gestionzoo.exceptions.InvalidAgeException;
+import tn.esprit.gestionzoo.exceptions.ZooFullException;
 
 public class ZooManagement {
 
     public static void main(String[] args) {
         Animal lion = new Animal();
         lion.setName("Simba");
-        lion.setAge(8);
+        try {
+            lion.setAge(8);
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());
+        }
         lion.setFamily("Cats");
         lion.setMammal(true);
 
@@ -17,26 +23,43 @@ public class ZooManagement {
 
         Animal dog = new Animal("Canine", "Snoopy", 2, true);
 
-//
-//        System.out.println(myZoo.addAnimal(lion));
-//        System.out.println(myZoo.addAnimal(dog));
-//
-//        myZoo.displayAnimals();
-//
-//        System.out.println(myZoo.searchAnimal(dog));
-//        Animal dog2 = new Animal("Canine", "lll", 2, true);
-//        System.out.println(myZoo.searchAnimal(dog2));
-//
-////           System.out.println(myZoo.removeAnimal(dog));
-//        myZoo.displayAnimals();
-//
-//
-//        System.out.println(myZoo);
-//
-//        myZoo.addAnimal(lion);
-//        myZoo.addAnimal(dog);
-//        myZoo.addAnimal(dog2);
-//        myZoo.displayAnimals();
+
+        try {
+            myZoo.addAnimal(lion);
+        } catch (ZooFullException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println(myZoo.getName() + " contient " + myZoo.getNbrAnimals() + " animaux");
+        }
+        try {
+            myZoo.addAnimal(dog);
+        } catch (ZooFullException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println(myZoo.getName() + " contient " + myZoo.getNbrAnimals() + " animaux");
+        }
+
+        myZoo.displayAnimals();
+
+        System.out.println(myZoo.searchAnimal(dog));
+        Animal dog2 = new Animal("Canine", "lll", 2, true);
+        System.out.println(myZoo.searchAnimal(dog2));
+
+//           System.out.println(myZoo.removeAnimal(dog));
+        myZoo.displayAnimals();
+
+
+        System.out.println(myZoo);
+
+        try {
+            myZoo.addAnimal(lion);
+        } catch (ZooFullException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println(myZoo.getName() + " contient " + myZoo.getNbrAnimals() + " animaux");
+        }
+
+        myZoo.displayAnimals();
 
         Dolphin d = new Dolphin();
         d.setSwimmingSpeed(24.5f);
@@ -71,7 +94,6 @@ public class ZooManagement {
             aquatics[i].swim();
         }
 
-        System.out.println(myZoo.averageSwimmingSpeed());
         myZoo.displayNumberOfAquaticsByType();
 
         System.out.println(myZoo.maxPenguinSwimmingDepth());
