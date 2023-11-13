@@ -1,8 +1,8 @@
 package tn.esprit.gestionzoo.entities;
-
+import tn.esprit.gestionzoo.Food.Food;
 import tn.esprit.gestionzoo.exceptions.InvalidAgeException;
 
-public sealed class Animal permits Aquatic, Terrestrial {
+public sealed abstract class Animal permits Aquatic, Terrestrial {
 
     private String family, name;
     private int age;
@@ -55,9 +55,12 @@ public sealed class Animal permits Aquatic, Terrestrial {
         isMammal = mammal;
     }
 
-
+//Instruction 37:-------------------------------------------------------
+    public abstract void eatMeat(Food food);
+//----------------------------------------------------------------------
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Animal{ Family:" + family + ", Name: " + name + ", Age: " + age + ", isMammal: " + isMammal + "}";
     }
 }
